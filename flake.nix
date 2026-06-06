@@ -22,7 +22,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.paskal = import ./home.nix;
+            home-manager.users.paskalsq = import ./home.nix;
             home-manager.backupFileExtension = "backup";
           }
         ];
@@ -38,7 +38,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.paskal = import ./home.nix;
+            home-manager.users.paskalsq = import ./home.nix;
             home-manager.backupFileExtension = "backup";
           }
         ];

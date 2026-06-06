@@ -52,7 +52,7 @@
     nerd-fonts.jetbrains-mono
   ];
 
-  users.users.paskal = {
+  users.users.paskalsq = {
     isNormalUser = true;
     shell = pkgs.zsh;
     extraGroups = [ "wheel" "libvirtd" "docker" ];
@@ -65,7 +65,7 @@
     enable = true;
     config = {
     safe = {
-      directory = "/home/paskal/nixos-dotfiles";
+      directory = "/home/paskalsq/nixos-dotfiles";
       };
     };
   };

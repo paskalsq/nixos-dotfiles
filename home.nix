@@ -8,16 +8,16 @@
       ./modules/zsh.nix
     ];
 
-  home.username = "paskal";
-  home.homeDirectory = "/home/paskal";
+  home.username = "paskalsq";
+  home.homeDirectory = "/home/paskalsq";
   home.stateVersion = "26.05";
 
   xdg.configFile."qtile" = {
-    source = config.lib.file.mkOutOfStoreSymlink "/home/paskal/nixos-dotfiles/config/qtile";
+    source = config.lib.file.mkOutOfStoreSymlink "/home/paskalsq/nixos-dotfiles/config/qtile";
     recursive = true;
   };
   xdg.configFile."nvim" = {
-    source = config.lib.file.mkOutOfStoreSymlink "/home/paskal/nixos-dotfiles/config/nvim";
+    source = config.lib.file.mkOutOfStoreSymlink "/home/paskalsq/nixos-dotfiles/config/nvim";
     recursive = true;
   };
 
