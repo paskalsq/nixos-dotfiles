@@ -9,7 +9,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "vm";
+  networking.hostName = "desktop";
 
   networking.networkmanager.enable = true;
 
@@ -18,6 +18,10 @@
   services.displayManager.ly.enable = true;
   services.xserver = {
     enable = true;
+    displayManager.setupCommands = ''
+      ${pkgs.xorg.xrandr}/bin/xrandr --output DP-0 --primary
+      ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-0 --right-of DP-1
+    '';
     autoRepeatDelay = 200;
     autoRepeatInterval = 35;
     windowManager.qtile.enable = true;
@@ -69,7 +73,7 @@
       };
     };
   };
-
+  services.dbus.enable = true;
   programs.dconf.enable = true;  
   virtualisation.docker = {
   enable = true;
@@ -86,8 +90,7 @@
     librewolf
   ];
   programs.zsh.enable = true;
-  services.openssh.enable = true;
-  
+  # services.v2raya.enable = true;
   # for later
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];

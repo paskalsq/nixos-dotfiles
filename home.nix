@@ -21,6 +21,13 @@
     recursive = true;
   };
 
+  home.file.".local/share/v2rayN/bin/xray/xray" = {
+    source = "${pkgs.xray}/bin/xray";
+  };
+  home.file."Music".source = config.lib.file.mkOutOfStoreSymlink "/DataHDD/Music";
+  home.file."Documents".source = config.lib.file.mkOutOfStoreSymlink "/DataHDD/Documents";
+  home.file."Videos".source = config.lib.file.mkOutOfStoreSymlink "/DataHDD/Videos";
+  home.file."Pictures".source = config.lib.file.mkOutOfStoreSymlink "/DataHDD/Pictures";
 
   home.packages = with pkgs; [
   neovim
@@ -35,6 +42,7 @@
   steam
   signal-desktop
   v2rayn
+  xray
   obs-studio
   obsidian
   mpv
@@ -45,11 +53,14 @@
   qbittorrent
   feh
   libnotify
+  snixembed
   flameshot
   rofi
   dracula-theme
   papirus-icon-theme
   bibata-cursors
+  libayatana-appindicator
+  libappindicator-gtk3
 ];
 
 }
