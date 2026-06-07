@@ -72,6 +72,7 @@
   bibata-cursors
   libayatana-appindicator
   libappindicator-gtk3
+  thunar
 ];
 
 }
