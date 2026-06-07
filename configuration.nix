@@ -8,13 +8,13 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelModules = [ "openrazer-driver" ];
 
   networking.hostName = "desktop";
 
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Moscow";
-
   services.displayManager.ly.enable = true;
   services.xserver = {
     enable = true;
@@ -59,7 +59,7 @@
   users.users.paskalsq = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "libvirtd" "docker" ];
+    extraGroups = [ "wheel" "libvirtd" "docker" "openrazer" ];
     packages = with pkgs; [
       tree
     ];
@@ -74,7 +74,9 @@
     };
   };
   services.dbus.enable = true;
-  programs.dconf.enable = true;  
+  
+  hardware.openrazer.enable = true;
+
   virtualisation.docker = {
   enable = true;
 }; 
@@ -88,10 +90,13 @@
     pavucontrol
     docker-compose
     librewolf
+    polychromatic
   ];
+  
   programs.zsh.enable = true;
-  # services.v2raya.enable = true;
-  # for later
+  programs.dconf.enable = true;  
+  
+  # for later or never
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   networking.firewall.enable = false;
