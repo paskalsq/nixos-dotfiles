@@ -4,3 +4,4 @@ xrandr --output HDMI-0 --mode 1280x1024 --rate 75
 AyuGram -startintray &
 feh --bg-fill --randomize ~/nixos-dotfiles/config/qtile/wallpaper/ &
 snixembed &
+v2rayN &
