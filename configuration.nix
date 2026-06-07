@@ -59,7 +59,7 @@
   users.users.paskalsq = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "libvirtd" "docker" "openrazer" ];
+    extraGroups = [ "wheel" "libvirtd" "docker" "openrazer" "adbusers" ];
     packages = with pkgs; [
       tree
     ];
@@ -75,7 +75,7 @@
   };
   services.dbus.enable = true;
   hardware.openrazer.enable = true;
-
+  services.gvfs.enable = true;
   services.syncthing = {
   enable = true;
   user = "paskalsq";
@@ -104,6 +104,7 @@
     librewolf
     polychromatic
     i3lock
+    android-tools
   ];
   security.pam.services.i3lock.enable = true;
  
