@@ -76,6 +76,14 @@
   services.dbus.enable = true;
   hardware.openrazer.enable = true;
 
+  services.syncthing = {
+  enable = true;
+  user = "paskalsq";
+  dataDir = "/home/paskalsq/.config/syncthing";
+  configDir = "/home/paskalsq/.config/syncthing";
+  openDefaultPorts = true;
+  };
+
   virtualisation.docker = {
   enable = true;
   enableNvidia = true;
@@ -114,7 +122,7 @@ networking.firewall = {
   enable = true;
   backend = "nftables"; 
 
-  allowedTCPPorts = [ 8000 4533 9180 ];
+  allowedTCPPorts = [ 8000 4533 9180 8384 ];
   allowedUDPPorts = [ ];
 };
 
