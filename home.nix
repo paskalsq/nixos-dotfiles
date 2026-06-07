@@ -20,6 +20,10 @@
     source = config.lib.file.mkOutOfStoreSymlink "/home/paskalsq/nixos-dotfiles/config/nvim";
     recursive = true;
   };
+  
+  xdg.configFile."alacritty" = {
+    source = config.lib.file.mkOutOfStoreSymlink "/home/paskalsq/nixos-dotfiles/config/alacritty";
+  };
 
   home.file.".local/share/v2rayN/bin/xray/xray" = {
     source = "${pkgs.xray}/bin/xray";

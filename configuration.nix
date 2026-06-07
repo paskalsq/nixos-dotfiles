@@ -80,6 +80,10 @@
   virtualisation.docker = {
   enable = true;
 }; 
+
+  virtualisation.docker.daemon.settings = {
+  data-root = "/home/paskalsq/docker";
+};
   
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
