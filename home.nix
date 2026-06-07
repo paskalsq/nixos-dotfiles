@@ -29,6 +29,11 @@
   home.file."Videos".source = config.lib.file.mkOutOfStoreSymlink "/DataHDD/Videos";
   home.file."Pictures".source = config.lib.file.mkOutOfStoreSymlink "/DataHDD/Pictures";
 
+  programs.ssh = {
+    enable = true;
+    addKeysToAgent = "yes"; 
+  };
+
   home.packages = with pkgs; [
   neovim
   ripgrep
