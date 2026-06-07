@@ -79,6 +79,7 @@
 
   virtualisation.docker = {
   enable = true;
+  enableNvidia = true;
 }; 
 
   virtualisation.docker.daemon.settings = {
