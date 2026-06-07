@@ -74,7 +74,6 @@
     };
   };
   services.dbus.enable = true;
-  
   hardware.openrazer.enable = true;
 
   virtualisation.docker = {
@@ -96,15 +95,28 @@
     docker-compose
     librewolf
     polychromatic
+    i3lock
   ];
-  
+  security.pam.services.i3lock.enable = true;
+ 
   programs.zsh.enable = true;
-  programs.dconf.enable = true;  
-  
-  # for later or never
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  networking.firewall.enable = false;
+  programs.dconf.enable = true;
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+  };
+
+networking.nftables.enable = true;
+
+networking.firewall = {
+  enable = true;
+  backend = "nftables"; 
+
+  allowedTCPPorts = [ 8000 4533 9180 ];
+  allowedUDPPorts = [ ];
+};
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   system.stateVersion = "26.05"; 

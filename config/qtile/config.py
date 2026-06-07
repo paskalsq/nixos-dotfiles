@@ -7,20 +7,19 @@ import subprocess
 
 @hook.subscribe.startup_once
 def autostart():
-    subprocess.Popen(['xrandr', '--output', 'Virtual-1', '--mode', '1920x1080'])
+    #subprocess.Popen(['xrandr', '--output', 'Virtual-1', '--mode', '1920x1080'])
     home = os.path.expanduser('~/nixos-dotfiles/config/qtile/autostart.sh')
     subprocess.Popen([home])
 
 mod = "mod4"
 terminal = guess_terminal()
-
 myTerm = "alacritty" 
 
 keys = [
-    Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
-    Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
-    Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
-    Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
+    #Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
+    #Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
+    #Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
+    #Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
     Key([mod], "space", lazy.layout.next(), desc="Move window focus to other window"),
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
@@ -35,6 +34,7 @@ keys = [
     Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
+    Key([mod], "l", lazy.spawn("i3lock -n -c 000000"), desc="Lock the screen"),
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
