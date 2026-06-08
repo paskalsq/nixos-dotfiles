@@ -14,7 +14,7 @@ def autostart():
 mod = "mod4"
 terminal = guess_terminal()
 myTerm = "alacritty" 
-
+lock_cmd = "i3lock -n -c 000000"
 keys = [
     #Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     #Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
@@ -34,7 +34,8 @@ keys = [
     Key([mod, "control"], "j", lazy.layout.grow_down(), desc="Grow window down"),
     Key([mod, "control"], "k", lazy.layout.grow_up(), desc="Grow window up"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
-    Key([mod], "l", lazy.spawn("i3lock -n -c 000000"), desc="Lock the screen"),
+    Key([mod], "l", lazy.spawn(lock_cmd), desc="Lock the screen"),
+    Key([mod], "e", lazy.spawn("thunar"), desc="Launch Thunar"),
     # Toggle between split and unsplit sides of stack.
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
@@ -268,6 +269,7 @@ cursor_warp = False
 # Format: "wm_class": (X, Y, Width, Height)
 CUSTOM_WINDOW_RULES = {
     "pavucontrol": (1220, 32, 700, 450),
+    "thunar": (460, 190, 1000, 700)
 }
 app_matches = [Match(wm_class=app) for app in CUSTOM_WINDOW_RULES.keys()]
 floating_layout = layout.Floating(
