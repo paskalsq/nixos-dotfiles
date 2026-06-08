@@ -48,8 +48,6 @@
   services.xserver = {
     enable = true;
     displayManager.setupCommands = ''
-      ${pkgs.xorg.xrandr}/bin/xrandr --output DP-0 --primary
-      ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-0 --right-of DP-1
     '';
     autoRepeatDelay = 200;
     autoRepeatInterval = 35;
