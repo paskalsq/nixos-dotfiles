@@ -5,14 +5,16 @@
     [ 
 
     ];
-
+  boot.loader.timeout = 1;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelModules = [ "openrazer-driver" ];
+  #boot.kernelModules = [ "openrazer-driver" ];
+  boot.kernelParams = [ "8250.nr_uarts=0" ];
 
   networking.hostName = "desktop";
 
   networking.networkmanager.enable = true;
+  systemd.services.NetworkManager-wait-online.enable = false;
 
   time.timeZone = "Europe/Moscow";
   services.displayManager.ly.enable = true;
@@ -88,6 +90,9 @@
   enable = true;
   enableNvidia = true;
 }; 
+
+  systemd.services.docker.after = [ "network.target" ];
+  systemd.services.docker.requires = [ "network.target" ];
 
   virtualisation.docker.daemon.settings = {
   data-root = "/home/paskalsq/docker";
