@@ -230,7 +230,7 @@ screens = [
                 ),
                 sep,
                 sep,
-                widget.Volume(
+                widget.PulseVolume(
                     foreground = colors[7],
                     padding = 8,
                     mouse_callbacks = {'Button1': lazy.spawn('pavucontrol')},

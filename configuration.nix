@@ -136,6 +136,7 @@
     polychromatic
     i3lock
     android-tools
+    pulseaudio
   ];
   security.pam.services.i3lock.enable = true;
  
