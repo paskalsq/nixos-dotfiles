@@ -3,7 +3,7 @@
 {
   imports =
     [ 
-
+      ./modules/thunar.nix
     ];
   boot.loader.timeout = 1;
   boot.loader.systemd-boot.enable = true;
@@ -102,7 +102,6 @@
   };
   services.dbus.enable = true;
   hardware.openrazer.enable = true;
-  services.gvfs.enable = true;
   services.syncthing = {
   enable = true;
   user = "paskalsq";
