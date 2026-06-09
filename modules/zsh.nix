@@ -9,6 +9,7 @@ programs.zsh = {
     shellAliases = {
       rebuild = "doas nixos-rebuild switch --flake ~/nixos-dotfiles#$(hostname)";
       v = "nvim";
+      sudo = "doas";
     };
 
     oh-my-zsh = {
