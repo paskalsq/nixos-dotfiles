@@ -113,6 +113,7 @@
   # === System and Other Services ===
   services.dbus.enable = true;
   hardware.openrazer.enable = true;
+  services.lact.enable = true;
 
   services.syncthing = {
     enable = true;
