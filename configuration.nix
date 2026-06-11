@@ -9,13 +9,14 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
   time.timeZone = "Europe/Moscow";
-
+  
   # === Boot and Kernel ===
   boot.loader.timeout = 1;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   #boot.kernelModules = [ "openrazer-driver" ];
   boot.kernelParams = [ "8250.nr_uarts=0" ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # === Network and Firewall ===
   networking = {
@@ -95,7 +96,6 @@
   };
   security.sudo.enable = false; 
   security.pam.services.i3lock.enable = true;
-
   # === Users and Fonts ===
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
@@ -114,6 +114,13 @@
   services.dbus.enable = true;
   hardware.openrazer.enable = true;
   services.lact.enable = true;
+  
+  services.zerotierone = {
+  enable = true;
+  joinNetworks = [
+    "e4da7455b2833e7c"
+  ];
+};
 
   services.syncthing = {
     enable = true;
@@ -122,7 +129,6 @@
     configDir = "/home/paskalsq/.config/syncthing";
     openDefaultPorts = true;
   };
-
   # === Virtualisation and Docker ===
   virtualisation.docker = {
     enable = true;
