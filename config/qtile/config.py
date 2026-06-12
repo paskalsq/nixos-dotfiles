@@ -4,12 +4,14 @@ from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 import os
 import subprocess
+from libqtile.widget import StatusNotifier
 
 @hook.subscribe.startup_once
 def autostart():
     #subprocess.Popen(['xrandr', '--output', 'Virtual-1', '--mode', '1920x1080'])
     home = os.path.expanduser('~/nixos-dotfiles/config/qtile/autostart.sh')
     subprocess.Popen([home])
+
 
 mod = "mod4"
 terminal = guess_terminal()
@@ -72,6 +74,10 @@ keys = [
 
 
 groups = [Group(i) for i in "123456789"]
+
+@hook.subscribe.startup
+def set_primary_focus():
+    qtile.focus_screen(0)
 
 for i in groups:
     keys.extend(
@@ -148,108 +154,106 @@ extension_defaults = widget_defaults.copy()
 
 sep = widget.Sep(linewidth=1, padding=8, foreground=colors[9])
 
-screens = [
-    Screen(
-        top=bar.Bar(
-            widgets = [
-                widget.Spacer(length = 8),
-                widget.Prompt(
-                    font = "Ubuntu Mono",
-                    fontsize=14,
-                    foreground = colors[1]
-                ),
-                widget.GroupBox(
-                    fontsize = 18,
-                    margin_y = 5,
-                    margin_x = 5,
-                    padding_y = 0,
-                    padding_x = 2,
-                    borderwidth = 3,
-                    active = colors[8],
-                    inactive = colors[9],
-                    rounded = False,
-                    highlight_color = colors[0],
-                    highlight_method = "line",
-                    this_current_screen_border = colors[7],
-                    this_screen_border = colors [4],
-                    other_current_screen_border = colors[7],
-                    other_screen_border = colors[4],
-                ),
-                widget.TextBox(
-                    text = '|',
-                    font = "JetBrainsMono Nerd Font Propo Bold",
-                    foreground = colors[9],
-                    padding = 2,
-                    fontsize = 14
-                ),
-                widget.CurrentLayout(
-                    foreground = colors[1],
-                    padding = 5
-                ),
-                widget.TextBox(
-                    text = '|',
-                    font = "JetBrainsMono Nerd Font Propo Bold",
-                    foreground = colors[9],
-                    padding = 2,
-                    fontsize = 14
-                ),
-                widget.WindowName(
-                    foreground = colors[6],
-                    padding = 8,
-                    max_chars = 40
-                ),
-                widget.GenPollText(
-                    update_interval = 300,
-                    func = lambda: subprocess.check_output("printf $(uname -r)", shell=True, text=True),
-                    foreground = colors[3],
-                    padding = 8, 
-                    fmt = '{}',
-                ),
-                sep,
-                widget.CPU(
-                    foreground = colors[4],
-                    padding = 8, 
-                    format="CPU: {load_percent}%",
-                ),
-                sep,
-                widget.Memory(
-                    foreground = colors[8],
-                    padding = 8, 
-                    format = 'Mem: {MemUsed:.0f}{mm}',
-                ),
-                sep,
-                widget.DF(
-                    update_interval = 60,
-                    foreground = colors[5],
-                    padding = 8, 
-                    mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn('notify-disk')},
-                    partition = '/',
-                    format = '{uf:.3}{m} free',
-                    fmt = 'Disk: {}',
-                    visible_on_warn = False,
-                ),
-                sep,
-                sep,
-                widget.PulseVolume(
-                    foreground = colors[7],
-                    padding = 8,
-                    mouse_callbacks = {'Button1': lazy.spawn('pavucontrol')},
-                    fmt = 'Vol: {}',
-                ),
-                sep,
-                widget.Clock(
-                    foreground = colors[8],
-                    padding = 8, 
-                    mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn('notify-date')},
-                    format = "%a, %b %d - %H:%M",
-                ),
-                widget.Systray(padding = 6),
-                widget.Spacer(length = 8),
-            ],
-            margin=[0, 0, 0, 0], 
-            size=30
-        ),
+
+primary_widgets = [
+    widget.Spacer(length = 8),
+    widget.Prompt(
+        font = "Ubuntu Mono",
+        fontsize=14,
+        foreground = colors[1]
     ),
+    widget.GroupBox(
+        fontsize = 18,
+        margin_y = 5,
+        margin_x = 5,
+        padding_y = 0,
+        padding_x = 2,
+        borderwidth = 3,
+        active = colors[8],
+        inactive = colors[9],
+        rounded = False,
+        highlight_color = colors[0],
+        highlight_method = "line",
+        this_current_screen_border = colors[7],
+        this_screen_border = colors [4],
+        other_current_screen_border = colors[7],
+        other_screen_border = colors[4],
+    ),
+    widget.TextBox(
+        text = '|',
+        font = "JetBrainsMono Nerd Font Propo Bold",
+        foreground = colors[9],
+        padding = 2,
+        fontsize = 14
+    ),
+    widget.CurrentLayout(
+        foreground = colors[1],
+        padding = 5
+    ),
+    widget.TextBox(
+        text = '|',
+        font = "JetBrainsMono Nerd Font Propo Bold",
+        foreground = colors[9],
+        padding = 2,
+        fontsize = 14
+    ),
+    widget.WindowName(
+        foreground = colors[6],
+        padding = 8,
+        max_chars = 40
+    ),
+   # widget.KeyboardLayout(
+   # configured_keyboards=['us', 'ru'],
+   # display_map={'us': 'US', 'ru': 'RU'},
+   # foreground=colors[1],
+   # padding=5
+   # ),
+    sep,
+    widget.CPU(
+        foreground = colors[4],
+        padding = 8, 
+        format="CPU: {load_percent}%",
+    ),
+    sep,
+    widget.Memory(
+        foreground = colors[8],
+        padding = 8, 
+        format = 'Mem: {MemUsed:.0f}{mm}',
+    ),
+    sep,
+    widget.DF(
+        update_interval = 60,
+        foreground = colors[5],
+        padding = 8, 
+        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn('notify-disk')},
+        partition = '/',
+        format = '{uf:.3}{m} free',
+        fmt = 'Disk: {}',
+        visible_on_warn = False,
+    ),
+    sep,
+    sep,
+    widget.PulseVolume(
+        foreground = colors[7],
+        padding = 8,
+        mouse_callbacks = {'Button1': lazy.spawn('pavucontrol')},
+        fmt = 'Vol: {}',
+    ),
+    sep,
+    widget.Clock(
+        foreground = colors[8],
+        padding = 8, 
+        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn('notify-date')},
+        format = "%a, %b %d - %H:%M",
+    ),
+    #widget.Systray(padding = 6),
+    widget.Spacer(length = 8),
+    StatusNotifier(padding = 6),
+]
+
+screens = [
+    Screen(),
+    Screen(top=bar.Bar(widgets=primary_widgets, size=30, margin=[0, 0, 0, 0])),
 ]
 
 # Drag floating layouts.

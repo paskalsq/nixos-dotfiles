@@ -32,12 +32,12 @@
   networking.firewall = {
     enable = true;
     backend = "nftables";
-    allowedTCPPorts = [ 8000 4533 9180 8384 ];
+    allowedTCPPorts = [ 8000 4533 9180 8384 25565 ];
     allowedUDPPorts = [ ];
   };
 
   # === dnscrypt-proxy2 ===
-  services.dnscrypt-proxy2 = {
+  services.dnscrypt-proxy = {
     enable = true;
     settings = {
       ipv6_servers = true;
@@ -73,6 +73,18 @@
     variant = "";
     options = "grp:alt_shift_toggle";
   };
+
+  environment.sessionVariables = {
+  GBM_BACKEND = "nvidia-drm";
+  __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+  
+  NIXOS_OZONE_WL = "1";
+  
+  WLR_NO_HARDWARE_CURSORS = "1"; 
+  WLR_RENDERER = "vulkan";
+  XKB_DEFAULT_LAYOUT = "us,ru";
+  XKB_DEFAULT_OPTIONS = "grp:alt_shift_toggle";
+};
 
   # === (Pipewire) and Security ===
   security.rtkit.enable = true;
@@ -114,6 +126,24 @@
   services.dbus.enable = true;
   hardware.openrazer.enable = true;
   services.lact.enable = true;
+
+  xdg.portal = {
+  enable = true;
+  wlr.enable = true;
+  
+  extraPortals = [ 
+    pkgs.xdg-desktop-portal-wlr 
+    pkgs.xdg-desktop-portal-gtk 
+  ];
+
+  config = {
+    common = {
+      default = [ "wlr" ];
+      
+      "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+    };
+  };
+};
   
   services.zerotierone = {
   enable = true;
@@ -129,6 +159,7 @@
     configDir = "/home/paskalsq/.config/syncthing";
     openDefaultPorts = true;
   };
+
   # === Virtualisation and Docker ===
   virtualisation.docker = {
     enable = true;
@@ -173,5 +204,7 @@
     i3lock
     android-tools
     pulseaudio
+    wlr-randr
+    wl-clipboard
   ];
 }
