@@ -48,6 +48,16 @@ keys = [
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack",
     ),
+    Key(
+        [], "Print",
+        lazy.spawn(
+            'bash -c \'ts=$(date +%s); dir="$HOME/Pictures/Screenshots"; '
+            'mkdir -p "$dir" && grim -g "$(slurp)" "$dir/screen-$ts.png" && '
+            'wl-copy < "$dir/screen-$ts.png" && '
+            'notify-send -u normal -i accessories-screenshot "Снимок Экрана" "Сохранён"\''
+        ),
+        desc="Скриншот выделенной области в файл и буфер"
+    ),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
@@ -63,7 +73,7 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "d", lazy.spawn("rofi -show drun -show-icons"), desc='Run Launcher'),
     Key([mod], "b", lazy.spawn("librewolf"), desc='Run Librewolf'),
-    Key([], "Print", lazy.spawn("flameshot gui"), desc='Screenshot'),
+    #Key([], "Print", lazy.spawn("flameshot gui"), desc='Screenshot'),
     Key(
         [mod], 
         "s",
