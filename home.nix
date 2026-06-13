@@ -33,13 +33,19 @@
   home.file."Videos".source = config.lib.file.mkOutOfStoreSymlink "/DataHDD/Videos";
   home.file."Pictures".source = config.lib.file.mkOutOfStoreSymlink "/DataHDD/Pictures";
 
-  services.redshift = {
-  enable = true;
+#  services.redshift = {
+#  enable = true;
+#
+#  provider = "manual";
+#  latitude = "51.67204";
+#  longitude = "39.1843";
+#};
 
-  provider = "manual";
-  latitude = "51.67204";
-  longitude = "39.1843";
-};
+  services.wlsunset = {
+    enable = true;
+    latitude = "51.67204";
+    longitude = "39.1843";
+  };
 
   home.packages = with pkgs; [
   neovim

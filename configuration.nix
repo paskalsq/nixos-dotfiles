@@ -138,9 +138,7 @@
 
   config = {
     common = {
-      default = [ "wlr" ];
-      
-      "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+      default = [ "wlr" "gtk" ];
     };
   };
 };
@@ -206,5 +204,6 @@
     pulseaudio
     wlr-randr
     wl-clipboard
+    awww
   ];
 }
