@@ -1,7 +1,9 @@
-from libqtile import bar, extension, hook, layout, qtile, widget
+from libqtile import bar, extension, hook, layout, qtile
 from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+#from qtile_extras import widget
+from qtile_extras import widget as qtile_features
 import os
 import subprocess
 from libqtile.widget import StatusNotifier
@@ -258,7 +260,8 @@ primary_widgets = [
     ),
     #widget.Systray(padding = 6),
     widget.Spacer(length = 8),
-    StatusNotifier(padding = 6),
+    #StatusNotifier(padding = 6),
+    qtile_features.StatusNotifier(padding=6)
 ]
 
 screens = [

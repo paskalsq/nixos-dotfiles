@@ -57,15 +57,21 @@
     };
   };
 
-  # === GUI, DM and X11 === 
+  # === GUI, DM === 
   services.displayManager.ly.enable = true;
   
   services.xserver = {
     enable = true;
-   # displayManager.setupCommands = '';
+    # displayManager.setupCommands = '';
     autoRepeatDelay = 200;
     autoRepeatInterval = 35;
-    windowManager.qtile.enable = true;
+
+    windowManager.qtile = {
+      enable = true;
+      extraPackages = pythonPackages: with pythonPackages; [
+        qtile-extras 
+      ];
+    };
   };
 
   services.xserver.xkb = {
