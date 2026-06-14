@@ -54,7 +54,7 @@ keys = [
             'bash -c \'ts=$(date +%s); dir="$HOME/Pictures/Screenshots"; '
             'mkdir -p "$dir" && grim -g "$(slurp)" "$dir/screen-$ts.png" && '
             'wl-copy < "$dir/screen-$ts.png" && '
-            'notify-send -u normal -i accessories-screenshot "Снимок Экрана" "Сохранён"\''
+            'notify-send -u normal "Screenshot" "Saved"\''
         ),
         desc="Скриншот выделенной области в файл и буфер"
     ),

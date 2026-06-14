@@ -108,6 +108,11 @@
   };
   security.sudo.enable = false; 
   security.pam.services.i3lock.enable = true;
+
+  hardware.bluetooth = {
+  enable = true;
+  powerOnBoot = true;
+};
   # === Users and Fonts ===
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono

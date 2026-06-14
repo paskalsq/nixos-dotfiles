@@ -25,6 +25,10 @@
     source = config.lib.file.mkOutOfStoreSymlink "/home/paskalsq/nixos-dotfiles/config/alacritty";
   };
 
+  xdg.configFile."dunst" = {
+    source = config.lib.file.mkOutOfStoreSymlink "/home/paskalsq/nixos-dotfiles/config/dunst";
+  };
+
   home.file.".local/share/v2rayN/bin/xray/xray" = {
     source = "${pkgs.xray}/bin/xray";
   };
@@ -45,6 +49,10 @@
     enable = true;
     latitude = "51.67204";
     longitude = "39.1843";
+    temperature = {
+      day = 6500;
+      night = 4000;
+    };
   };
 
   home.packages = with pkgs; [
@@ -79,6 +87,10 @@
   libayatana-appindicator
   libappindicator-gtk3
   lmstudio
+  jamesdsp
+  grim
+  slurp
+  dunst
 ];
 
 }

@@ -11,3 +11,4 @@ AyuGram -startintray &
 #feh --bg-fill --randomize ~/nixos-dotfiles/config/qtile/wallpaper/ &
 #snixembed &
 v2rayN &
+dunst &
