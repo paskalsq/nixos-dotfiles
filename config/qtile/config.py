@@ -2,7 +2,7 @@ from libqtile import bar, extension, hook, layout, qtile
 from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
-#from qtile_extras import widget
+from qtile_extras import widget
 from qtile_extras import widget as qtile_features
 import os
 import subprocess
@@ -18,7 +18,7 @@ def autostart():
 mod = "mod4"
 terminal = guess_terminal()
 myTerm = "alacritty" 
-lock_cmd = "i3lock -n -c 000000"
+lock_cmd = "swaylock -n -c 000000"
 keys = [
     #Key([mod], "h", lazy.layout.left(), desc="Move focus to left"),
     #Key([mod], "l", lazy.layout.right(), desc="Move focus to right"),
@@ -58,7 +58,7 @@ keys = [
             'wl-copy < "$dir/screen-$ts.png" && '
             'notify-send -u normal "Screenshot" "Saved"\''
         ),
-        desc="Скриншот выделенной области в файл и буфер"
+        desc="Screenshot"
     ),
     Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     # Toggle between different layouts as defined below

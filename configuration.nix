@@ -25,15 +25,15 @@
     hostName = "desktop";
     networkmanager.dns = "none";
   };
-
   systemd.services.NetworkManager-wait-online.enable = false;
 
   networking.nftables.enable = true;
   networking.firewall = {
     enable = true;
     backend = "nftables";
-    allowedTCPPorts = [ 8000 4533 9180 8384 25565 ];
-    allowedUDPPorts = [ ];
+    allowedTCPPorts = [ 8000 4533 9180 8384 8008 1234 80 ];
+    allowedUDPPorts = [ 69 4011 ];
+    trustedInterfaces = [ "virbr0" ];
   };
 
   # === dnscrypt-proxy2 ===
@@ -92,21 +92,29 @@
   XKB_DEFAULT_OPTIONS = "grp:alt_shift_toggle";
 };
 
-  # === (Pipewire) and Security ===
+  # === Pipewire and Security ===
   security.rtkit.enable = true;
-  services.pipewire = {
+  
+    services.pipewire = {
     enable = true;
     pulse.enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     jack.enable = true;
+    
+    wireplumber.extraConfig."51-bluez-ldac" = {
+      "monitor.bluez.properties" = {
+        "bluez5.a2dp.ldac.quality" = "hq"; 
+      };
+    };
   };
+
 
   security.doas = {
     enable = true;
     extraRules = [
       {
-        groups = [ "wheel" ];
+        groups = [ "wheel" "input" "video" ];
         keepEnv = true;
         persist = true;
       }
@@ -114,6 +122,8 @@
   };
   security.sudo.enable = false; 
   security.pam.services.i3lock.enable = true;
+  security.pam.services.swaylock.enable = true;
+
 
   hardware.bluetooth = {
   enable = true;
@@ -169,6 +179,11 @@
     openDefaultPorts = true;
   };
 
+  services.atftpd = {
+    enable = true;
+    root = "/var/lib/tftpboot";
+  };
+
   # === Virtualisation and Docker ===
   virtualisation.docker = {
     enable = true;
@@ -182,6 +197,9 @@
 
   systemd.services.docker.after = [ "network.target" ];
   systemd.services.docker.requires = [ "network.target" ];
+
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
 
   # === Programs and Environment Packages ===
   programs.zsh.enable = true;
@@ -216,5 +234,6 @@
     wlr-randr
     wl-clipboard
     awww
+    dnsmasq
   ];
 }
