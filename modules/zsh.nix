@@ -8,6 +8,7 @@ programs.zsh = {
     autosuggestion.enable = true;
     shellAliases = {
       rebuild = "doas nixos-rebuild switch --flake ~/nixos-dotfiles#$(hostname)";
+      hermes = "PYTHONPATH=\$HOME/.local/share/hermes-deps hermes";
       v = "nvim";
       sudo = "doas";
     };

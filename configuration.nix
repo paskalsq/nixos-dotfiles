@@ -31,8 +31,8 @@
   networking.firewall = {
     enable = true;
     backend = "nftables";
-    allowedTCPPorts = [ 8000 4533 9180 8384 8008 1234 80 ];
-    allowedUDPPorts = [ 69 4011 ];
+    allowedTCPPorts = [ 8000 4533 9180 8384 8008 1234 5900 ];
+    allowedUDPPorts = [ ];
     trustedInterfaces = [ "virbr0" ];
   };
 
@@ -137,7 +137,7 @@
   users.users.paskalsq = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "libvirtd" "docker" "openrazer" "adbusers" ];
+    extraGroups = [ "wheel" "libvirtd" "kvm" "video" "render" "docker" "openrazer" "adbusers" ];
     packages = with pkgs; [
       tree
     ];
@@ -177,11 +177,6 @@
     dataDir = "/home/paskalsq/.config/syncthing";
     configDir = "/home/paskalsq/.config/syncthing";
     openDefaultPorts = true;
-  };
-
-  services.atftpd = {
-    enable = true;
-    root = "/var/lib/tftpboot";
   };
 
   # === Virtualisation and Docker ===

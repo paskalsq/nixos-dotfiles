@@ -104,6 +104,7 @@
   grim
   slurp
   dunst
+  uv
 ];
 
 }
