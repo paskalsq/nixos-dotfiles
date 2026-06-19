@@ -47,12 +47,9 @@
 
   services.wlsunset = {
     enable = true;
-    latitude = "51.67204";
-    longitude = "39.1843";
-    temperature = {
-      day = 6500;
-      night = 4000;
-    };
+    latitude = "51.67";
+    longitude = "39.18";
+    systemdTarget = "graphical-session.target";
   };
 
   programs.swaylock = {
