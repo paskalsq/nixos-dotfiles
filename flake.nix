@@ -3,13 +3,14 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-26.05";
+    hermes-agent.url = "github:NousResearch/hermes-agent";
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }: {
+  outputs = { self, nixpkgs, home-manager, hermes-agent, ... }: {
     nixosConfigurations = {
       
       vm = nixpkgs.lib.nixosSystem {
@@ -34,6 +35,7 @@
           ./configuration.nix
           ./hosts/desktop/hardware-configuration.nix
           ./hosts/desktop/nvidia.nix
+          hermes-agent.nixosModules.default
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;

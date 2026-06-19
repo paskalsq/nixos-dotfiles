@@ -179,6 +179,11 @@
     openDefaultPorts = true;
   };
 
+  services.hermes-agent = {
+    enable = true;
+    addToSystemPackages = true;
+  };
+
   # === Virtualisation and Docker ===
   virtualisation.docker = {
     enable = true;
