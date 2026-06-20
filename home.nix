@@ -29,6 +29,14 @@
     source = config.lib.file.mkOutOfStoreSymlink "/home/paskalsq/nixos-dotfiles/config/dunst";
   };
 
+  xdg.configFile."quickshell" = {
+    source = config.lib.file.mkOutOfStoreSymlink "/home/paskalsq/nixos-dotfiles/config/quickshell";
+  };
+  
+  xdg.configFile."niri" = {
+    source = config.lib.file.mkOutOfStoreSymlink "/home/paskalsq/nixos-dotfiles/config/niri";
+  };
+
   home.file.".local/share/v2rayN/bin/xray/xray" = {
     source = "${pkgs.xray}/bin/xray";
   };
@@ -63,8 +71,7 @@
     show-failed-attempts = true;
   };
 };
-
-
+  
   home.packages = with pkgs; [
   neovim
   ripgrep
@@ -102,6 +109,9 @@
   slurp
   dunst
   uv
+  quickshell
+  xwayland-satellite
+  swaybg
 ];
 
 }

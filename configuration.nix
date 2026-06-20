@@ -59,7 +59,8 @@
 
   # === GUI, DM === 
   services.displayManager.ly.enable = true;
-  
+  programs.niri.enable = true;
+
   services.xserver = {
     enable = true;
     # displayManager.setupCommands = '';
@@ -219,6 +220,8 @@
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
   };
+
+  programs.dms-shell.enable = true;
 
   environment.systemPackages = with pkgs; [
     vim
