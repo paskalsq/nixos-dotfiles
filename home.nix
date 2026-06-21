@@ -71,7 +71,7 @@
     show-failed-attempts = true;
   };
 };
-  
+
   home.packages = with pkgs; [
   neovim
   ripgrep
@@ -112,6 +112,7 @@
   quickshell
   xwayland-satellite
   swaybg
+  feishin
 ];
 
 }
