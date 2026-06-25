@@ -71,7 +71,6 @@
     show-failed-attempts = true;
   };
 };
-
   home.packages = with pkgs; [
   neovim
   ripgrep
@@ -111,8 +110,9 @@
   uv
   quickshell
   xwayland-satellite
-  swaybg
-  feishin
+  lutris
+  vulkan-tools
+  umu-launcher
 ];
 
 }

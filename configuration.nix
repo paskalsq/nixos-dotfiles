@@ -193,10 +193,17 @@
 
   systemd.services.docker.after = [ "network.target" ];
   systemd.services.docker.requires = [ "network.target" ];
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      package = pkgs.qemu_kvm;
+      runAsRoot = true;
+      swtpm.enable = true;
+  };
+};
 
-  virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
-
+  virtualisation.spiceUSBRedirection.enable = true;
   # === Programs and Environment Packages ===
   programs.zsh.enable = true;
   programs.dconf.enable = true;
@@ -214,8 +221,21 @@
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
+    extest.enable = true;
   };
-
+  
+  programs.proxychains = {
+  enable = true;
+  chain.type = "strict";
+  proxies = {
+    myproxy = {
+      enable = true;
+      type = "socks5";
+      host = "127.0.0.1";
+      port = 10808;
+    };
+  };
+};
   programs.dms-shell.enable = true;
 
   environment.systemPackages = with pkgs; [
@@ -226,12 +246,11 @@
     docker-compose
     librewolf
     polychromatic
-    i3lock
     android-tools
     pulseaudio
     wlr-randr
     wl-clipboard
-    awww
     dnsmasq
+    jq
   ];
 }
