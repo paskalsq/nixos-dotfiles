@@ -44,15 +44,7 @@
   home.file."Documents".source = config.lib.file.mkOutOfStoreSymlink "/DataHDD/Documents";
   home.file."Videos".source = config.lib.file.mkOutOfStoreSymlink "/DataHDD/Videos";
   home.file."Pictures".source = config.lib.file.mkOutOfStoreSymlink "/DataHDD/Pictures";
-
-#  services.redshift = {
-#  enable = true;
-#
-#  provider = "manual";
-#  latitude = "51.67204";
-#  longitude = "39.1843";
-#};
-
+  
   services.wlsunset = {
     enable = true;
     latitude = "51.67";
@@ -71,6 +63,25 @@
     show-failed-attempts = true;
   };
 };
+  
+  programs.obs-studio = {
+    enable = true;
+
+    package = (
+      pkgs.obs-studio.override {
+        cudaSupport = true;
+      }
+    );
+
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+      obs-backgroundremoval
+      obs-pipewire-audio-capture
+      obs-gstreamer
+      obs-vkcapture
+    ];
+  };
+
   home.packages = with pkgs; [
   neovim
   ripgrep
@@ -84,7 +95,6 @@
   signal-desktop
   v2rayn
   xray
-  obs-studio
   obsidian
   mpv
   picard
@@ -94,7 +104,6 @@
   qbittorrent
   feh
   libnotify
-  snixembed
   flameshot
   rofi
   dracula-theme
@@ -107,12 +116,11 @@
   grim
   slurp
   dunst
-  uv
   quickshell
   xwayland-satellite
-  lutris
   vulkan-tools
   umu-launcher
+  rustdesk
 ];
 
 }

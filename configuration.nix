@@ -15,7 +15,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   #boot.kernelModules = [ "openrazer-driver" ];
-  boot.kernelParams = [ "8250.nr_uarts=0" ];
+  boot.kernelParams = [ "8250.nr_uarts=0" "nvidia.NVreg_SetPageAttributes=1" ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # === Network and Firewall ===
@@ -169,6 +169,7 @@
   enable = true;
   joinNetworks = [
     "e4da7455b2833e7c"
+    "ebe7fbd445b0ff38"
   ];
 };
 
@@ -179,7 +180,7 @@
     configDir = "/home/paskalsq/.config/syncthing";
     openDefaultPorts = true;
   };
-
+  services.flatpak.enable = true;
   # === Virtualisation and Docker ===
   virtualisation.docker = {
     enable = true;
@@ -207,7 +208,7 @@
   # === Programs and Environment Packages ===
   programs.zsh.enable = true;
   programs.dconf.enable = true;
-
+  programs.gamescope.enable = true;
   programs.git = {
     enable = true;
     config = {
