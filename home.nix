@@ -121,6 +121,7 @@
   vulkan-tools
   umu-launcher
   rustdesk
+  filezilla
 ];
 
 }

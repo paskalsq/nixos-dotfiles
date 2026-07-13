@@ -21,7 +21,7 @@
   # === Network and Firewall ===
   networking = {
     networkmanager.enable = true;
-    nameservers = [ "127.0.0.1" "::1" ];
+    nameservers = [ "10.10.10.12" ];
     hostName = "desktop";
     networkmanager.dns = "none";
   };
@@ -172,6 +172,7 @@
     "ebe7fbd445b0ff38"
   ];
 };
+
 
   services.syncthing = {
     enable = true;
