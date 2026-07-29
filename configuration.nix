@@ -12,10 +12,16 @@
   
   # === Boot and Kernel ===
   boot.loader.timeout = 1;
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    v4l2loopback
+  ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  #boot.kernelModules = [ "openrazer-driver" ];
+  boot.kernelModules = [ "v4l2loopback" ];
   boot.kernelParams = [ "8250.nr_uarts=0" "nvidia.NVreg_SetPageAttributes=1" ];
+  boot.extraModprobeConfig = ''
+    options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
+  '';
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # === Network and Firewall ===
@@ -95,7 +101,6 @@
 
   # === Pipewire and Security ===
   security.rtkit.enable = true;
-  
     services.pipewire = {
     enable = true;
     pulse.enable = true;
@@ -121,9 +126,10 @@
       }
     ];
   };
-  security.sudo.enable = false; 
-  security.pam.services.i3lock.enable = true;
+  security.sudo.enable = true; 
+  #security.pam.services.i3lock.enable = true;
   security.pam.services.swaylock.enable = true;
+  security.polkit.enable = true;
 
 
   hardware.bluetooth = {
@@ -148,7 +154,7 @@
   services.dbus.enable = true;
   hardware.openrazer.enable = true;
   services.lact.enable = true;
-
+  services.v2raya.enable = false;
   xdg.portal = {
   enable = true;
   wlr.enable = true;
@@ -254,5 +260,6 @@
     wl-clipboard
     dnsmasq
     jq
+    lutris
   ];
 }
