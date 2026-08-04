@@ -122,6 +122,7 @@
   filezilla
   unzip
   unrar
+  parsec-bin
 ];
 
 }
