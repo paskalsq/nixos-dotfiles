@@ -260,6 +260,22 @@
     };
   };
 };
+
+  programs.appimage = {
+  enable = true;
+  binfmt = true;
+  package = pkgs.appimage-run.override {
+    extraPkgs = pkgs: with pkgs; [
+      mpv
+      mesa
+      libGL
+      libva
+      libvdpau
+      vulkan-loader
+      libglvnd
+    ];
+  };
+};
   programs.dms-shell.enable = true;
 
   environment.systemPackages = with pkgs; [
@@ -279,5 +295,6 @@
     lutris
     psmisc
     virtiofsd
+    mpv
   ];
 }
