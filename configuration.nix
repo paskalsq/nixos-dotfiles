@@ -72,6 +72,7 @@
     # displayManager.setupCommands = '';
     autoRepeatDelay = 200;
     autoRepeatInterval = 35;
+    desktopManager.plasma6.enable = true;
 
     windowManager.qtile = {
       enable = true;
@@ -92,11 +93,11 @@
   __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   
   NIXOS_OZONE_WL = "1";
-  
   WLR_NO_HARDWARE_CURSORS = "1"; 
   WLR_RENDERER = "vulkan";
   XKB_DEFAULT_LAYOUT = "us,ru";
   XKB_DEFAULT_OPTIONS = "grp:alt_shift_toggle";
+  DOTNET_ROOT = "${pkgs.dotnet-aspnetcore_9}/share/dotnet";
 };
 
   # === Pipewire and Security ===
@@ -130,7 +131,22 @@
   #security.pam.services.i3lock.enable = true;
   security.pam.services.swaylock.enable = true;
   security.polkit.enable = true;
-
+  
+  security.polkit.extraConfig = ''
+  polkit.addRule(function(action, subject) {
+    if (
+      subject.user == "paskalsq" &&
+      (
+        action.id == "org.freedesktop.login1.power-off" ||
+        action.id == "org.freedesktop.login1.power-off-multiple-sessions" ||
+        action.id == "org.freedesktop.login1.reboot" ||
+        action.id == "org.freedesktop.login1.reboot-multiple-sessions"
+      )
+    ) {
+      return polkit.Result.YES;
+    }
+  });
+'';
 
   hardware.bluetooth = {
   enable = true;
@@ -185,7 +201,7 @@
   enable = true;
   openFirewall = true;
   settings = {
-    PasswordAuthentication = true;
+    PasswordAuthentication = false;
     KbdInteractiveAuthentication = false;
     PermitRootLogin = "no";
     AllowUsers = [ "paskalsq" ];
@@ -296,5 +312,10 @@
     psmisc
     virtiofsd
     mpv
+    python3
+    dotnet-aspnetcore_9
+    dotnet-aspnetcore_10
+    webkitgtk_4_1
+    libnotify
   ];
 }
