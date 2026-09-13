@@ -24,22 +24,26 @@
   '';
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  fileSystems."/DataHDD" = {
-  device = "/dev/disk/by-uuid/2a698b21-578c-4a40-8abf-04be92fc44e1";
-  fsType = "ext4";
-  options = [ "defaults" "nofail" ];   # ← добавили nofail
-};
+  #NFS
+  boot.supportedFilesystems = [ "nfs" ];
+  services.rpcbind.enable = true;
 
-fileSystems."/DataSSD" = {
-  device = "/dev/disk/by-uuid/7bbf6b57-e10d-49a7-82b3-5f9d991c79a1";
-  fsType = "ext4";
-  options = [ "defaults" "nofail" ];   # ← добавили nofail
-};
+  fileSystems."/DataHDD" = {
+    device = "10.10.10.10:/mnt/nfs";
+    fsType = "nfs";
+    options = [
+      "defaults"
+      "nofail"
+      "x-systemd.automount"
+      "_netdev"
+      "vers=4.2"
+    ];
+  };
 
   # === Network and Firewall ===
   networking = {
     networkmanager.enable = true;
-    nameservers = [ "10.10.10.1" ];
+    nameservers = [ "10.10.10.12" ];
     hostName = "desktop";
     networkmanager.dns = "none";
   };
@@ -100,8 +104,8 @@ fileSystems."/DataSSD" = {
   };
 
   environment.sessionVariables = {
-  GBM_BACKEND = "nvidia-drm";
-  __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+  #GBM_BACKEND = "nvidia-drm";
+  #__GLX_VENDOR_LIBRARY_NAME = "nvidia";
   
   NIXOS_OZONE_WL = "1";
   WLR_NO_HARDWARE_CURSORS = "1"; 
@@ -233,7 +237,7 @@ fileSystems."/DataSSD" = {
   # === Virtualisation and Docker ===
   virtualisation.docker = {
     enable = true;
-    enableNvidia = true;
+    # enableNvidia = true;
     extraOptions = "--dns 9.9.9.9 --dns 1.1.1.1";
   };
 
@@ -244,11 +248,11 @@ fileSystems."/DataSSD" = {
   systemd.services.docker.after = [ "network.target" ];
   systemd.services.docker.requires = [ "network.target" ];
   virtualisation.libvirtd = {
-    enable = true;
+    enable = false;
     qemu = {
       package = pkgs.qemu_kvm;
       runAsRoot = true;
-      swtpm.enable = true;
+      swtpm.enable = false;
       vhostUserPackages = [ pkgs.virtiofsd ];
   };
 };

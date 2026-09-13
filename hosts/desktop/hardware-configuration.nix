@@ -29,14 +29,16 @@
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
-  fileSystems."/DataHDD" =
-    { device = "/dev/disk/by-uuid/2a698b21-578c-4a40-8abf-04be92fc44e1";
-      fsType = "ext4";
-    };
+  #fileSystems."/DataHDD" =
+   # { device = "/dev/disk/by-uuid/2a698b21-578c-4a40-8abf-04be92fc44e1";
+   #   fsType = "ext4";
+   #   options = [ "defaults" "nofail" ];
+   # };
 
   fileSystems."/DataSSD" =
     { device = "/dev/disk/by-uuid/7bbf6b57-e10d-49a7-82b3-5f9d991c79a1";
       fsType = "ext4";
+      options = [ "defaults" "nofail" ];
     };
 
   swapDevices = [ ];
