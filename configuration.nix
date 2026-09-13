@@ -37,13 +37,16 @@
       "x-systemd.automount"
       "_netdev"
       "vers=4.2"
+      "soft"
+      "timeo=30"
+      "retrans=3"
     ];
   };
 
   # === Network and Firewall ===
   networking = {
     networkmanager.enable = true;
-    nameservers = [ "10.10.10.12" ];
+    nameservers = [ "10.10.10.12" "127.0.0.1" ];
     hostName = "desktop";
     networkmanager.dns = "none";
   };
@@ -213,7 +216,7 @@
   
 
   services.openssh = {
-  enable = true;
+  enable = false;
   openFirewall = true;
   settings = {
     PasswordAuthentication = false;
