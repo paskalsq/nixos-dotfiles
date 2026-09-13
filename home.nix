@@ -124,6 +124,7 @@
   unrar
   parsec-bin
   teamspeak6-client
+  dnsutils
 ];
 
 }

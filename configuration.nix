@@ -24,10 +24,22 @@
   '';
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  fileSystems."/DataHDD" = {
+  device = "/dev/disk/by-uuid/2a698b21-578c-4a40-8abf-04be92fc44e1";
+  fsType = "ext4";
+  options = [ "defaults" "nofail" ];   # ← добавили nofail
+};
+
+fileSystems."/DataSSD" = {
+  device = "/dev/disk/by-uuid/7bbf6b57-e10d-49a7-82b3-5f9d991c79a1";
+  fsType = "ext4";
+  options = [ "defaults" "nofail" ];   # ← добавили nofail
+};
+
   # === Network and Firewall ===
   networking = {
     networkmanager.enable = true;
-    nameservers = [ "10.10.10.12" ];
+    nameservers = [ "10.10.10.1" ];
     hostName = "desktop";
     networkmanager.dns = "none";
   };
@@ -72,7 +84,6 @@
     # displayManager.setupCommands = '';
     autoRepeatDelay = 200;
     autoRepeatInterval = 35;
-    desktopManager.plasma6.enable = true;
 
     windowManager.qtile = {
       enable = true;
@@ -160,7 +171,7 @@
   users.users.paskalsq = {
     isNormalUser = true;
     shell = pkgs.zsh;
-    extraGroups = [ "wheel" "libvirtd" "kvm" "video" "render" "docker" "openrazer" "adbusers" ];
+    extraGroups = [ "wheel" "libvirtd" "kvm" "video" "render" "docker" "openrazer" "adbusers" "wireshark" ];
     packages = with pkgs; [
       tree
     ];

@@ -33,7 +33,8 @@
         modules = [
           ./configuration.nix
           ./hosts/desktop/hardware-configuration.nix
-          ./hosts/desktop/nvidia.nix
+          #./hosts/desktop/nvidia.nix
+          ./hosts/desktop/intel.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
