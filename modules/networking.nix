@@ -7,7 +7,7 @@
     nameservers = [ "10.10.10.12" "127.0.0.1" ];
   };
   systemd.services.NetworkManager-wait-online.enable = false;
-
+  
   networking.nftables.enable = true;
   networking.firewall = {
     enable = true;
@@ -18,6 +18,10 @@
   };
 
   # dnscrypt-proxy2
+  environment.etc."dnscrypt-proxy/cloaking-rules.txt".text = ''
+    *.lan 10.10.10.13
+  '';
+  
   services.dnscrypt-proxy = {
     enable = true;
     settings = {
@@ -26,6 +30,7 @@
       require_nolog = true;
       query_log.file = "/var/log/dnscrypt-proxy/query.log";
       forwarding_rules = "/etc/nixos/services/networking/forwarding-rules.txt";
+      cloaking_rules = "/etc/dnscrypt-proxy/cloaking-rules.txt";
       sources.public-resolvers = {
         urls = [
           "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md"
@@ -37,6 +42,7 @@
       server_names = [ "quad9-dnscrypt-ip4-filter-pri" "anon-scaleway-fr" ];
     };
   };
+
 
   services.zerotierone = {
     enable = true;
