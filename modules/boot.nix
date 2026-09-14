@@ -11,8 +11,8 @@
     v4l2loopback
   ];
   boot.kernelParams = [
-    #"8250.nr_uarts=0"
-    #"nvidia.NVreg_SetPageAttributes=1"
+    "8250.nr_uarts=0"
+    "nvidia.NVreg_SetPageAttributes=1"
     "intel_iommu=on"
     "iommu=pt"
     "i915.enable_psr=0"
