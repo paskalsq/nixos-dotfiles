@@ -9,15 +9,12 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }: {
-    nixosConfigurations = {
-      
-      vm = nixpkgs.lib.nixosSystem {
+  outputs = { self, nixpkgs, home-manager, ... }:
+    let
+      mkHost = { hostModules }: nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [
+        modules = hostModules ++ [
           ./configuration.nix
-          ./hosts/vm/hardware-configuration.nix
-          ./hosts/vm/guest.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -27,24 +24,16 @@
           }
         ];
       };
-
-      desktop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./configuration.nix
-          ./hosts/desktop/hardware-configuration.nix
-          #./hosts/desktop/nvidia.nix
-          ./hosts/desktop/intel.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.paskalsq = import ./home.nix;
-            home-manager.backupFileExtension = "backup";
-          }
-        ];
+    in
+    {
+      nixosConfigurations = {
+        desktop = mkHost {
+          hostModules = [
+            ./hosts/desktop/hardware-configuration.nix
+            # ./hosts/desktop/nvidia.nix
+            ./hosts/desktop/intel.nix
+          ];
+        };
       };
-
     };
-  };
 }

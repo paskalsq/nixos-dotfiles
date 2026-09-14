@@ -1,0 +1,22 @@
+{ ... }:
+
+{
+  security.rtkit.enable = true;
+  services.pipewire = {
+    enable = true;
+    pulse.enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    jack.enable = true;
+    wireplumber.extraConfig."51-bluez-ldac" = {
+      "monitor.bluez.properties" = {
+        "bluez5.a2dp.ldac.quality" = "hq";
+      };
+    };
+  };
+
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+}
